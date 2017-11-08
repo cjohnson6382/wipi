@@ -13,7 +13,7 @@ const styles = {
 }
 
 const Network = ({ network, onClick }) => (
-	<Link to={ `/detailed/${network}` } onClick={ onClick } style={ styles.network } >{ network }</Link>
+	<Link to={ `/detailed/${network.ESSID}` } onClick={ onClick } style={ styles.network } >{ network.ESSID }</Link>
 )
 
 Network.propTypes = {

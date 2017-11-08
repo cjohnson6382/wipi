@@ -43,16 +43,25 @@ class App extends Component {
 
   async getNetworks () { 
     this.setState({ loading: true })
+    let t = await wipiFetch("GET")("get_networks")()
+    if (t) t = await t.json()
+    else t = []
+
     this.setState({
-      networks: await (await wipiFetch("GET")("get_networks")()).json(),
+      networks: t,
       loading: false
     })
   }
 
   async storedNetworks () { 
-    this.setState({ loading: true })    
+    this.setState({ loading: true })
+
+    let t = await wipiFetch("GET")("stored_networks")()
+    if (t) t = await t.json()
+    else t = []
+
     this.setState({
-      stored: await (await wipiFetch("GET")("stored_networks")()).json(),
+      stored: t,
       loading: false
     })
   }
