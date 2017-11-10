@@ -1,4 +1,4 @@
-export const SERVER_PREFIX = window.location.origin + "/";
+// export const SERVER_PREFIX = window.location.origin + "/";
 
 // let apiServerPrefix = "";
 // switch (SERVER_PREFIX) {
@@ -15,6 +15,5 @@ export const SERVER_PREFIX = window.location.origin + "/";
 // }
 // export const API_SERVER_PREFIX = apiServerPrefix;
 
-// export const API_SERVER_PREFIX = "http://localhost:5000/"
-// export const API_SERVER_PREFIX = "http://192.168.1.108:5000/"
 export const API_SERVER_PREFIX = "http://71.198.74.203:8888/"
+// export const API_SERVER_PREFIX = window.location.origin + "/";

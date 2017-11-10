@@ -32,8 +32,14 @@ const styles = {
 const Detailed = ({ match, networks_dict, loading }) => {
 	let network = loading ? {} : networks_dict[match.params.network]
 	let pw = ""
-	const connectPW = async (essid, password) => { let r = await wipiFetch("GET")("choose_network")({ essid, password }) }
-	const connect = async essid => { let r = await wipiFetch("GET")("choose_network")({ essid, password: "" }) }
+	const connectPW = async (essid, password) => {
+		let r = await (await wipiFetch("POST")("choose_network")({ essid, password })).json()
+		console.log(r)
+	}
+	const connect = async essid => { 
+		let r = await (await wipiFetch("POST")("choose_network")({ essid, password: "" })).json()
+		console.log(r)
+	}
 
 	console.log(networks_dict)
 	return (
