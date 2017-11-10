@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 // import { Link } from 'react-router-dom'
 
 import Network from './Network'
+import Loading from './Loading'
 
 // import { wipiFetch } from './utilities'
 
@@ -32,11 +33,11 @@ const Home = ({ getNetworks, getStored, networks, stored, loading }) => {
 			<h1>WIRELESS NETWORKS IN RANGE OF YOUR RASPBERRY PI</h1>
 			<h3>Connect to a network:</h3>
 			<div>
+				{ loading && <Loading /> }
 				{ !loading && networks.length > 0 && networks.map((n, i) => (
-					<div style={ styles.store(n.essid) } ><Network
+					<div style={ styles.store(n.essid) } key={ i } ><Network
 						onClick={ console.log("clicked network") } 
-						network={ n } 
-						key={ i } 
+						network={ n }
 					/></div>
 				)) }
 			</div>

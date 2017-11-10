@@ -17,7 +17,7 @@ const Network = ({ network, onClick }) => (
 )
 
 Network.propTypes = {
-	network: PropTypes.string,
+	network: PropTypes.object,
 	onClick: PropTypes.func
 }
 

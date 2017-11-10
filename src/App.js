@@ -9,6 +9,7 @@ import Networks from './Networks'
 import Reset from './Reset'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
+import Current from './Current'
 
 import { wipiFetch } from './utilities'
 
@@ -34,23 +35,36 @@ class App extends Component {
     this.storedNetworks = this.storedNetworks.bind(this)
   }
 
-  state = { networks: [], stored: [], loading: false }
+  state = { networks: [], networks_dict: {}, stored: [], loading: true }
 
   componentDidMount () { 
-    this.getNetworks() 
+    this.getNetworks()
     this.storedNetworks()
   }
 
-  async getNetworks () { 
+  async getNetworks () {
+    let networks = []
     this.setState({ loading: true })
     let t = await wipiFetch("GET")("get_networks")()
-    if (t) t = await t.json()
-    else t = []
+    if (t) networks = await t.json()
+    else networks = []
 
-    this.setState({
-      networks: t,
+    let k = networks.map(n => n.ESSID[0])
+    let v = networks.map(n => {
+      let dict = {}
+      Object.keys(n).map(k => { n[k].length > 1 ? dict[k] = n[k] : dict[k] = n[k][0] })
+      return dict
+    })
+
+    let networks_dict = {}
+    let dud = [...Array(networks.length).keys()].map(i => networks_dict[k[i]] = v[i])
+
+    await this.setState({
+      networks,
+      networks_dict,
       loading: false
     })
+
   }
 
   async storedNetworks () { 
@@ -72,6 +86,7 @@ class App extends Component {
         <Grid style={ styles.container } className="App">
           <div style={ styles.sidebar } ><Sidebar /></div>
           <div style={ styles.content } >
+            <Route exact path="/current" render={ (routeProps) => <Current { ...routeProps } /> } />
             <Route 
               exact 
               path="/" 
@@ -113,7 +128,8 @@ class App extends Component {
               render={ (routeProps) => (
                 <Detailed 
                   { ...routeProps } 
-                  networks={ this.state.networks } 
+                  networks_dict={ this.state.networks_dict }
+                  loading={ this.state.loading }
                 />
               ) } 
             />

@@ -26,7 +26,8 @@ const styles = {
 
 const Sidebar = () => (
 	<div style={ styles.sidebar } >
-		<div style={ styles.linkContainer } ><Link to="/" style={ styles.link } >Main</Link></div>
+		<div style={ styles.linkContainer } ><Link to="/" style={ styles.link } >Available</Link></div>
+		<div style={ styles.linkContainer } ><Link to="/current" style={ styles.link }>Current</Link></div>
 		<div style={ styles.linkContainer } ><Link to="/networks" style={ styles.link } >Saved Networks</Link></div>
 		<div style={ styles.linkContainer } ><Link to="/reset" style={ styles.link } >Reset</Link></div>
 	</div>
