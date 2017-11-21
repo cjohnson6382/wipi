@@ -12,10 +12,6 @@ import Detailed from './Detailed'
 import { wipiFetch, generalStyles } from './utilities'
 
 const styles = {
-	store: (b) => ({
-		border: b ? "0.1em solid black" : "",
-		padding: "0.3em"
-	}),
 	button: {
 		border: "0.1em solid black",
 		padding: "0.3em",
@@ -81,7 +77,7 @@ export default class Home extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<div style={ { display: "flex", flexDirection: "column" } } >
 				{ Object.keys(this.state.detailed).length < 1 && <h2 style={ generalStyles.title } >NETWORKS IN RANGE</h2> }
 				<div>
 					{ this.state.loading && <Loading /> }
