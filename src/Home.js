@@ -6,8 +6,10 @@ import PropTypes from 'prop-types'
 
 import Network from './Network'
 import Loading from './Loading'
+import Detailed from './Detailed'
 
-// import { wipiFetch } from './utilities'
+
+import { wipiFetch } from './utilities'
 
 const styles = {
 	store: (b) => ({
@@ -26,32 +28,94 @@ const styles = {
 	}
 }
 
-// will have a list of networks to connect to, with stored networks highlighted
-const Home = ({ getNetworks, getStored, networks, stored, loading }) => {
-	return (
-		<div>
-			<h1>WIRELESS NETWORKS IN RANGE OF YOUR RASPBERRY PI</h1>
-			<h3>Connect to a network:</h3>
+/*
+export default class Home extends React.Component {
+	static propTypes = {}
+
+	constructor () {}
+
+	state = {}
+
+	
+
+	render () {
+		return ()
+	}
+}
+
+*/
+
+export default class Home extends React.Component {
+	static propTypes = {
+		getNetworks: PropTypes.func,
+		getStored: PropTypes.func,
+		networks: PropTypes.array,
+		stored: PropTypes.array,
+		loading: PropTypes.bool
+	}
+
+	constructor (props) {
+		super(props)
+
+		this.setDetailed = this.setDetailed.bind(this)
+		this.getNetworks = this.getNetworks.bind(this)
+	}
+
+	state = {
+		networks: [],
+		networks_dict: {},
+		loading: false,
+		detailed: {}
+	}
+
+	componentDidMount () { this.getNetworks() }
+
+	setDetailed (detailed = {}) { this.setState({ detailed }) }
+
+	async getNetworks () {
+		let networks = []
+		this.setState({ loading: true })
+		let t = await wipiFetch("GET")("get_networks")()
+		if (t) networks = await t.json()
+		else networks = []
+
+		let k = networks.map(n => n.ESSID[0])
+		let v = networks.map(n => {
+			let dict = {}
+			let dud = Object.keys(n).map(k => { n[k].length > 1 ? dict[k] = n[k] : dict[k] = n[k][0] })
+			return dict
+		})
+
+		let networks_dict = {}
+		let dud = [...Array(networks.length).keys()].map(i => networks_dict[k[i]] = v[i])
+
+		await this.setState({
+			networks,
+			networks_dict,
+			loading: false
+		})
+	}
+
+	render () {
+		return (
 			<div>
-				{ loading && <Loading /> }
-				{ !loading && networks.length > 0 && networks.map((n, i) => (
-					<div style={ styles.store(n.essid) } key={ i } ><Network
-						onClick={ console.log("clicked network") } 
-						network={ n }
-					/></div>
-				)) }
+				<h1>WIRELESS NETWORKS IN RANGE OF YOUR RASPBERRY PI</h1>
+				<h3>Connect to a network:</h3>
+				<div>
+					{ this.state.loading && <Loading /> }
+					{ Object.keys(this.state.detailed).length > 1 && <Detailed history={ this.props.history } setDetailed={ this.setDetailed } network={ this.state.detailed } /> }
+					{ Object.keys(this.state.detailed).length < 1 && !this.state.loading && this.state.networks.length > 0 && this.state.networks.map((n, i) => (
+						<div style={ styles.store(n.essid) } key={ i } >
+							<Network
+								onClick={ network => this.setDetailed(network) }
+								type="detailed"
+								network={ n }
+							/>
+						</div>
+					)) }
+				</div>
+				<div style={ styles.button } onClick={ this.getNetworks } >Refresh the Network List</div>
 			</div>
-			<div style={ styles.button } onClick={ getNetworks } >Refresh the Network List</div>
-		</div>
-	)
+		)
+	}
 }
-
-Home.propTypes = {
-	getNetworks: PropTypes.func,
-	getStored: PropTypes.func,
-	networks: PropTypes.array,
-	stored: PropTypes.array,
-	loading: PropTypes.bool
-}
-
-export default Home
