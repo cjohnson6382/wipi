@@ -103,7 +103,7 @@ export default class Home extends React.Component {
 				<h3>Connect to a network:</h3>
 				<div>
 					{ this.state.loading && <Loading /> }
-					{ Object.keys(this.state.detailed).length > 1 && 
+					{ Object.keys(this.state.detailed).length > 0 && 
 						<Detailed 
 							history={ this.props.history } 
 							setDetailed={ this.setDetailed } 
@@ -122,7 +122,7 @@ export default class Home extends React.Component {
 						)
 					) }
 				</div>
-				<div style={ styles.button } onClick={ this.getNetworks } >Refresh the Network List</div>
+				<div style={ styles.button } onClick={ this.getNetworks } >{ Object.keys(this.state.detailed).length < 1 ? "Refresh the Network List" : "Go Back to List" }</div>
 			</div>
 		)
 	}
