@@ -8,7 +8,7 @@ import { Button } from 'react-bootstrap' // , Glyphicon, Modal
 
 // import Loading from './Loading'
 
-import { wipiFetch } from './utilities'
+import { wipiFetch, generalStyles } from './utilities'
 
 const styles = {
 	button: {
@@ -45,15 +45,13 @@ const Detailed = ({ history, network, setDetailed }) => {
 		await setDetailed()
 		// history.push({ pathname: "/add_item", state: { Page: this.props.location.state ? this.props.location.state.Page : 1 } 
 		history.push({ pathname: "/current" })
-	}	
-
-	console.log(network["Encryption key"])
+	}
 
 	return (
 		<div>
 			<div>
-				<h1>Detailed Network View</h1>
-				<div>{ Object.keys(network).map((k, i) => <div key={ i } ><span>{ k }:</span>{ network[k] }</div>) }</div>
+				<h2 style={ generalStyles.title } >Detailed Network View</h2>
+				<div style={ generalStyles.body } >{ Object.keys(network).reverse().map((k, i) => <div style={ generalStyles.networkProperties } key={ i } ><span>{ k }:</span>{ network[k] }</div>) }</div>
 			</div>
 			{ 
 				network["Encryption key"][0] === "on" && 

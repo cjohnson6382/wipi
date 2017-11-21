@@ -9,7 +9,7 @@ import Loading from './Loading'
 import Detailed from './Detailed'
 
 
-import { wipiFetch } from './utilities'
+import { wipiFetch, generalStyles } from './utilities'
 
 const styles = {
 	store: (b) => ({
@@ -27,23 +27,6 @@ const styles = {
 		color: "white"
 	}
 }
-
-/*
-export default class Home extends React.Component {
-	static propTypes = {}
-
-	constructor () {}
-
-	state = {}
-
-	
-
-	render () {
-		return ()
-	}
-}
-
-*/
 
 export default class Home extends React.Component {
 	static propTypes = {
@@ -99,8 +82,7 @@ export default class Home extends React.Component {
 	render () {
 		return (
 			<div>
-				<h1>WIRELESS NETWORKS IN RANGE</h1>
-				<h3>Connect to a network:</h3>
+				{ Object.keys(this.state.detailed).length < 1 && <h2 style={ generalStyles.title } >NETWORKS IN RANGE</h2> }
 				<div>
 					{ this.state.loading && <Loading /> }
 					{ Object.keys(this.state.detailed).length > 0 && 
@@ -110,17 +92,16 @@ export default class Home extends React.Component {
 							network={ this.state.detailed } 
 						/> 
 					}
-					{ Object.keys(this.state.detailed).length < 1 && !this.state.loading && this.state.networks.length > 0 && 
+					<div style={ generalStyles.body } >{ Object.keys(this.state.detailed).length < 1 && !this.state.loading && this.state.networks.length > 0 && 
 						this.state.networks.map((n, i) => (
-							<div style={ styles.store(n.essid) } key={ i } >
-								<Network
-									onClick={ network => this.setDetailed(network) }
-									type="detailed"
-									network={ n }
-								/>
-							</div>
+							<Network
+								key={ i }
+								onClick={ network => this.setDetailed(network) }
+								type="detailed"
+								network={ n }
+							/>
 						)
-					) }
+					) }</div>
 				</div>
 				<div style={ styles.button } onClick={ this.getNetworks } >{ Object.keys(this.state.detailed).length < 1 ? "Refresh the Network List" : "Go Back to List" }</div>
 			</div>

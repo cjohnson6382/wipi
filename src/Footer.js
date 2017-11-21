@@ -13,10 +13,15 @@ const styles = {
 		fontWeight: "bold"
 	},
 	footerBox: {
-		padding: "2em"
+		padding: "2em",
+		display: "flex",
+		justifyContent: "center"
 	},
 	footerContainer: {
-		backgroundColor: "aliceblue"
+		backgroundColor: "aliceblue",
+		display: "flex",
+		justifyContent: "center",
+		flexDirection: "column"
 	}
 }
 
@@ -24,7 +29,7 @@ const Footer = () => {
 	return (
 		<div style={ styles.footerContainer } >
 			<div style={ styles.footerBox } ><span style={ styles.footerItem } >Don't Steal</span><span style={ styles.footerItem }>Don't Copyright</span><span style={ styles.footerItem }>Make Stuff</span></div>
-			<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+			<a style={ { margin: "auto" } } rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 				<img 
 					alt="Creative Commons License" 
 					src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" 
@@ -32,7 +37,7 @@ const Footer = () => {
 			</a>
 			<br />
 			<div style={ styles.footerBox } >
-				<span>This work is licensed under a </span>
+				<span style={ { paddingRight: "0.2em" } } >This work is licensed under a</span>
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 					Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 				</a>.

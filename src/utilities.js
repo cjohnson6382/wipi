@@ -5,6 +5,19 @@
 // import {API_SERVER_PREFIX, AUDIENCE, CLIENT_ID, CLIENT_SECRET} from './config';
 import { API_SERVER_PREFIX } from './config';
 
+export const generalStyles = {
+	headerTitle: { color: "midnightblue" },
+	title: {
+		backgroundColor: "rgba(75, 0, 130, 0.9)",
+		color: "rgba(255, 255, 255, 1)",
+		padding: "0.5em",
+		margin: "0"
+	},
+	body: { backgroundColor: "cyan", padding: "1em" },
+	networkProperties: { padding: "0.5em" }
+
+}
+
 // export let resource_schema_ids = {}
 export let app_ids = {}
 

@@ -8,7 +8,13 @@ import { Link } from 'react-router-dom'
 
 const styles = {
 	network: {
-		padding: "0.3em"
+		flex: "0 1 70%",
+		padding: "0.5em",
+		margin: "0.3em",
+		backgroundColor: "deepskyblue",
+		color: "white",
+		fontWeight: "bold",
+		textDecoration: "none"
 	}
 }
 
@@ -23,14 +29,16 @@ const networkType = (WrappedComponent) => class extends React.Component {
 
 const Network = ({ network, onClick, type, essid }) => {
 	let Comp = type === "detailed" ? Button : Link
-	return ( <div>
+	return ( <div style={ { display: "flex" } } >
+		<div style={ { visbility: "hidden", flex: "0 1 15%" } } ></div>
 		<Comp 
 			to={ type === "current" ? `/current` : `/detailed/${network[essid]}` } 
 			onClick={ e => onClick(network, network[essid]) }
 			style={ styles.network }
 		>
-			{ network[essid] }
+			{ network[essid][0].length > 0 ? network[essid] : "(no ESSID for this network)" }
 		</Comp>
+		<div style={ { visbility: "hidden", flex: "0 1 15%" } } ></div>
 	</div> )
 }
 

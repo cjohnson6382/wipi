@@ -20,7 +20,8 @@ const styles = {
 		width: "100%"
 	},
 	sidebar: {
-		textAlign: "left"
+		textAlign: "left",
+		flex: "0 1 auto"
 	}
 }
 

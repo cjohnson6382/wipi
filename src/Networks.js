@@ -6,7 +6,7 @@ import React from 'react'
 
 import Network from './Network'
 
-import { wipiFetch } from './utilities'
+import { wipiFetch, generalStyles } from './utilities'
 
 // const styles = {}
 
@@ -51,9 +51,8 @@ export default class Networks extends React.Component {
     render () {
         return (
             <div>
-                <h1>YOUR SAVED WIRELESS NETWORKS</h1>
-                <h3>Connect to a network:</h3>
-                <div>
+                <h2 style={ generalStyles.title } >YOUR SAVED WIRELESS NETWORKS</h2>
+                <div style={ generalStyles.body } >
                     { !this.state.loading && this.state.stored.length > 0 && this.state.stored.map((n, i) => (
                         <Network network={ n } type="current" onClick={ this.onClick } key={ i } />
                     ))}

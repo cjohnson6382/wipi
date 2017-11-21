@@ -7,6 +7,7 @@ import Home from './Home'
 import Detailed from './Detailed'
 import Networks from './Networks'
 import Reset from './Reset'
+import Header from './Header'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
 import Current from './Current'
@@ -29,17 +30,20 @@ const styles = {
 
 const App = () => (
   <BrowserRouter>
-    <Grid style={ styles.container } className="App">
-      <div style={ styles.sidebar } ><Sidebar /></div>
-      <div style={ styles.content } >
-        <Route exact path="/current" render={ routeProps => <Current { ...routeProps } /> } />
-        <Route exact path="/" render={ routeProps => <Home { ...routeProps } /> } />
-        <Route exact path="/networks" render={ routeProps => <Networks { ...routeProps } /> } />
-        <Route exact path="/reset" render={ routeProps => <Reset { ...routeProps } /> } />
-        <Route exact path="/detailed/:network" render={ routeProps => <Detailed { ...routeProps } /> } />
-      </div>
-      <Footer style={ styles.footer } />
-    </Grid>
+    <div>
+      <Header />
+      <Grid style={ { display: "flex", alignItems: "stretch" } } className="App">
+        <div style={ styles.sidebar } ><Sidebar /></div>
+        <div style={ styles.content } >
+          <Route exact path="/current" render={ routeProps => <Current { ...routeProps } /> } />
+          <Route exact path="/" render={ routeProps => <Home { ...routeProps } /> } />
+          <Route exact path="/networks" render={ routeProps => <Networks { ...routeProps } /> } />
+          <Route exact path="/reset" render={ routeProps => <Reset { ...routeProps } /> } />
+          <Route exact path="/detailed/:network" render={ routeProps => <Detailed { ...routeProps } /> } />
+        </div>
+      </Grid>
+      <Footer/>
+    </div>
   </BrowserRouter> 
 )
 

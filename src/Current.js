@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 import Loading from './Loading'
 
-import { wipiFetch } from './utilities'
+import { wipiFetch, generalStyles } from './utilities'
 
 const styles = {
 	button: {
@@ -60,10 +60,25 @@ export default class Current extends React.Component {
 		return (
 			<div>
 				<div>
-					<h1>Current Network View</h1>
+					<h2 style={ generalStyles.title } >Current Network View</h2>
 					<div>{ this.state.loading && <Loading /> }</div>
-					<div>{ !this.state.loading && Object.keys(this.state.current).length < 1 && <div>You are not connected to a wireless network</div> }</div>
-					<div>{ !this.state.loading && Object.keys(this.state.current).map((k, i) => <div key={ i } ><span>{ k }:</span>{ this.state.current[k] }</div>) }</div>
+					<div>
+						{ !this.state.loading && Object.keys(this.state.current).length < 1 && 
+							<div>You are not connected to a wireless network</div> 
+						}
+					</div>
+					<div style={ generalStyles.body } >
+						{ !this.state.loading &&
+							Object.keys(this.state.current).reverse().map((k, i) =>
+								<div
+									style={ generalStyles.networkProperties }
+									key={ i }
+								>
+									<span>{ k }:</span>{ this.state.current[k] }
+								</div>
+							)
+						}
+					</div>
 				</div>
 				{ Object.keys(this.state.current).length > 0 && 
 					<Link 
