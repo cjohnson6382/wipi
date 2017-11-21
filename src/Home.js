@@ -74,7 +74,7 @@ export default class Home extends React.Component {
 
 	async getNetworks () {
 		let networks = []
-		this.setState({ loading: true })
+		this.setState({ loading: true, detailed: {} })
 		let t = await wipiFetch("GET")("get_networks")()
 		if (t) networks = await t.json()
 		else networks = []
@@ -82,7 +82,7 @@ export default class Home extends React.Component {
 		let k = networks.map(n => n.ESSID[0])
 		let v = networks.map(n => {
 			let dict = {}
-			let dud = Object.keys(n).map(k => { n[k].length > 1 ? dict[k] = n[k] : dict[k] = n[k][0] })
+			let dud = Object.keys(n).map(k => { return n[k].length > 1 ? dict[k] = n[k] : dict[k] = n[k][0] })
 			return dict
 		})
 
@@ -99,20 +99,28 @@ export default class Home extends React.Component {
 	render () {
 		return (
 			<div>
-				<h1>WIRELESS NETWORKS IN RANGE OF YOUR RASPBERRY PI</h1>
+				<h1>WIRELESS NETWORKS IN RANGE</h1>
 				<h3>Connect to a network:</h3>
 				<div>
 					{ this.state.loading && <Loading /> }
-					{ Object.keys(this.state.detailed).length > 1 && <Detailed history={ this.props.history } setDetailed={ this.setDetailed } network={ this.state.detailed } /> }
-					{ Object.keys(this.state.detailed).length < 1 && !this.state.loading && this.state.networks.length > 0 && this.state.networks.map((n, i) => (
-						<div style={ styles.store(n.essid) } key={ i } >
-							<Network
-								onClick={ network => this.setDetailed(network) }
-								type="detailed"
-								network={ n }
-							/>
-						</div>
-					)) }
+					{ Object.keys(this.state.detailed).length > 1 && 
+						<Detailed 
+							history={ this.props.history } 
+							setDetailed={ this.setDetailed } 
+							network={ this.state.detailed } 
+						/> 
+					}
+					{ Object.keys(this.state.detailed).length < 1 && !this.state.loading && this.state.networks.length > 0 && 
+						this.state.networks.map((n, i) => (
+							<div style={ styles.store(n.essid) } key={ i } >
+								<Network
+									onClick={ network => this.setDetailed(network) }
+									type="detailed"
+									network={ n }
+								/>
+							</div>
+						)
+					) }
 				</div>
 				<div style={ styles.button } onClick={ this.getNetworks } >Refresh the Network List</div>
 			</div>

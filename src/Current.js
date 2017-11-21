@@ -52,8 +52,6 @@ export default class Current extends React.Component {
 			let r = await wipiFetch("GET")("current_network")()
 			let current = await r.json()
 
-			console.log(current)
-
 			this.setState({ current, loading: false })
 		}, 2500)
 	}
