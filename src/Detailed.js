@@ -33,14 +33,14 @@ const Detailed = ({ history, network, setDetailed }) => {
 	let pw =  ""
 
 	const connect = async (essid, password="") => {
-		console.log(essid[0], password)
+		// console.log(essid[0], password)
 		essid = essid[0]
 
 		let r = await (await wipiFetch("POST")("choose_network")({ essid, password })).json()
-		console.log(r)
+		// console.log(r)
 
 		let s = await (await wipiFetch("POST")("save_network")({ essid, password })).json()
-		console.log(s)
+		// console.log(s)
 
 		await setDetailed()
 		// history.push({ pathname: "/add_item", state: { Page: this.props.location.state ? this.props.location.state.Page : 1 } 
