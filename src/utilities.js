@@ -67,19 +67,6 @@ export const fetchErrorWrapper = async (f, ...p) => {
 }
 
 
-// FOR TESTING PURPOSES; FIX THIS BEFORE USING
-export const register = email => uuid => console.log(email, uuid)
-// export const register = email => uuid => fetchErrorWrapper(uncheckedRegister, email, uuid)
-const uncheckedRegister = email => uuid => fetch(
-	"heroku.jobbox.com/api/devices/new", 
-	{
-		headers: { "accept": "application/json", "content-type": "application/json" },
-		method: "POST",
-		mode: "cors",
-		body: JSON.stringify({ email, uuid })
-	}
-)
-
 export const wipiFetch = method => url => options => fetchErrorWrapper(uncheckedWipiFetch, method, url, options)
 const uncheckedWipiFetch = method => url => options => fetch(API_SERVER_PREFIX + url, { headers: headers, method: method, mode: "cors", body: JSON.stringify(options) })
 

@@ -15,5 +15,5 @@
 // }
 
 // export const API_SERVER_PREFIX = "http://192.168.1.106:8888/"
-// export const API_SERVER_PREFIX = "http://71.198.74.203:8888/"
-export const API_SERVER_PREFIX = window.location.origin + "/";
+export const API_SERVER_PREFIX = "http://71.198.74.203:8888/"
+// export const API_SERVER_PREFIX = window.location.origin + "/";

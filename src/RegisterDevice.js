@@ -1,10 +1,6 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
-import { Button, Modal } from 'react-bootstrap' //	, Glyphicon, Modal
-import { Link } from 'react-router-dom'
-
-import { register, wipiFetch } from './utilities'
 
 const styles = {
 	button: {
@@ -14,46 +10,48 @@ const styles = {
 		color: "white",
 		fontWeight: "bold",
 		textDecoration: "none"
+	},
+	overlay: {
+		backgroundColor: "rgba(0, 0, 0, 0.5)",
+		left: 0,
+		top: 0,
+		position: "absolute",
+		width: "100%",
+		height: "100%",
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center"
+	},
+	modal: {
+		padding: "1em",
+		width: "25em",
+		height: "15em",
+		border: "0.1em solid black",
+		boxShadow: "0.1em 0.2em 0.2em 0.2em black",
+		backgroundColor: "white"
 	}
 }
 
-/*
-		<div style={ { display: "flex" } } >
-			<div style={ { visbility: "hidden", flex: "0 1 15%" } } ></div>
-			<Comp 
-				to={ type === "current" ? `/current` : `/detailed/${network[essid]}` } 
-				onClick={ e => onClick(network, network[essid]) }
-				style={ styles.network }
-			>
-				{ network[essid][0].length > 0 ? network[essid] : "(no ESSID for this network)" }
-			</Comp>
-			<div style={ { visbility: "hidden", flex: "0 1 15%" } } ></div>
-		</div>
-*/
-
-const RegisterDevice = ({ register, registerd, uuid }) => {
+const RegisterDevice = ({ registerEmail, registered, uuid }) => {
 	let email = ""
-	
+
 	return (
-		 <Modal.Dialog>
-		 	<Modal.Header>
-		 		<Modal.Title>Enter an Email Address to Receive PDF Printouts</Modal.Title>
-		 	</Modal.Header>
-		 	<Modal.Body>
-		 		<div><input type="text" onChange={ e => email = e.target.value } /></div>
-		 	</Modal.Body>
-		 	<Modal.Footer>
-		 		<div style={ styles.button } onClick={ register(email)(uuid) } >Register</div>
-		 	</Modal.Footer>
-		 </Modal.Dialog>
+			<div style={ styles.overlay } >
+				<div style={ styles.modal } >
+					<h3>Enter an Email Address to Receive PDF Printouts</h3>
+					<hr />
+					<div style={ { padding: "0.3em" } } ><input style={ { width: "100%" } } type="text" onChange={ e => email = e.target.value } /></div>
+					<div style={ styles.button } onClick={ e => registerEmail(email) } >Register</div>
+				</div>
+			</div>
 	)
 }
 
-Network.propTypes = {
-	network: PropTypes.object,
-	onClick: PropTypes.func
+RegisterDevice.propTypes = {
+	registerEmail: PropTypes.func,
+	registered: PropTypes.bool,
+	uuid: PropTypes.string
+
 }
 
-const SpecificNetwork = networkType(Network)
-
-export default SpecificNetwork
+export default RegisterDevice

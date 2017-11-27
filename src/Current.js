@@ -7,8 +7,9 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import Loading from './Loading'
+import RegisterDevice from './RegisterDevice'
 
-import { wipiFetch, generalStyles, register } from './utilities'
+import { wipiFetch, generalStyles } from './utilities'
 
 const styles = {
 	button: {
@@ -37,9 +38,10 @@ export default class Current extends React.Component {
 	constructor (props) {
 		super(props)
 
-		this.register = this.register.bind(this)
+		this.registerEmail = this.registerEmail.bind(this)
 		this.getCurrent = this.getCurrent.bind(this)
 		this.getUUID = this.getUUID.bind(this)
+		this.checkRegistration = this.checkRegistration.bind(this)
 	}
 
 	state = { current: {}, loading: true, registered: true, uuid: "" }
@@ -57,7 +59,7 @@ export default class Current extends React.Component {
 		this.setState({ uuid })
 	}
 
-	async checkRegisteration () {
+	async checkRegistration () {
 		let status = await wipiFetch("GET")("email_address")()
 		let registered = await status.json()
 		// the server currently returns a JSON with { success: true } on successful device registration
@@ -74,14 +76,16 @@ export default class Current extends React.Component {
 		}, 2500)
 	}
 
-	async register (email) {
-		await wipiFetch("POST")("register")({ email, uuid: this.state.uuid })
-		this.setState({ registered: true }) 
+	async registerEmail (email) {
+		let status = await wipiFetch("POST")("register")({ email, uuid: this.state.uuid })
+		if (status.ok) this.setState({ registered: true })
+		else console.log("something went wrong registering email")
 	}
 
 	render () {
 		return (
-			<div>
+			<div style={ { position: "relative" } } >
+				{ !this.state.registered && <RegisterDevice registerEmail={ this.registerEmail } registered={ this.state.registered } /> }
 				<div>
 					<h2 style={ generalStyles.title } >Current Network View</h2>
 					<div>{ this.state.loading && <Loading /> }</div>
@@ -112,7 +116,6 @@ export default class Current extends React.Component {
 						Disconnect
 					</Link> 
 				}
-				{ !this.state.registered && <RegisterDevice register={ register } registered={ this.state.registered } /> }
 			</div>
 		)
 	}
