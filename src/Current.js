@@ -83,6 +83,7 @@ export default class Current extends React.Component {
 	}
 
 	render () {
+		console.log(`device registration status: ${this.state.registered}; action will be: ${this.state.registered ? "no registration" : "register" }`)
 		return (
 			<div style={ { position: "relative" } } >
 				{ !this.state.registered && <RegisterDevice registerEmail={ this.registerEmail } registered={ this.state.registered } /> }
