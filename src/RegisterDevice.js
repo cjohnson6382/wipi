@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 const styles = {
 	button: {
 		padding: "0.5em",
+		cursor: "pointer",
 		margin: "0.3em",
 		backgroundColor: "deepskyblue",
 		color: "white",
