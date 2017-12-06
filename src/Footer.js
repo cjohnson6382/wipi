@@ -9,11 +9,10 @@ import React from 'react'
 const styles = {
 	footerItem: {
 		paddingLeft: "1.5em",
-		paddingRight: "1.5em",
-		fontWeight: "bold"
+		paddingRight: "1.5em"
 	},
 	footerBox: {
-		padding: "2em",
+		padding: "0.5em",
 		display: "flex",
 		justifyContent: "center"
 	},
@@ -28,20 +27,14 @@ const styles = {
 const Footer = () => {
 	return (
 		<div style={ styles.footerContainer } >
-			<div style={ styles.footerBox } ><span style={ styles.footerItem } >Don't Steal</span><span style={ styles.footerItem }>Don't Copyright</span><span style={ styles.footerItem }>Make Stuff</span></div>
-			<a style={ { margin: "auto" } } rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+			<a style={ { margin: "auto", width: "20%" } } rel="info" href="mailto:info@sustainabilist.com">
 				<img 
-					alt="Creative Commons License" 
-					src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" 
+					style={ { width: "100%", height: "100%", paddingTop: "1em" } }
+					alt="Sustainabilist Logo" 
+					src="/sustainabilist_logo.png"
 				/>
 			</a>
-			<br />
-			<div style={ styles.footerBox } >
-				<span style={ { paddingRight: "0.2em" } } >This work is licensed under a</span>
-				<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
-					Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-				</a>.
-			</div>
+			<div style={ styles.footerBox } ><span style={ styles.footerItem } >Created by Sustainabilist (copyright 2017)</span></div>
 		</div>
 	)
 }
