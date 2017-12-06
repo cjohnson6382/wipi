@@ -28,13 +28,9 @@ const Footer = () => {
 	return (
 		<div style={ styles.footerContainer } >
 			<a style={ { margin: "auto", width: "20%" } } rel="info" href="mailto:info@sustainabilist.com">
-				<img 
-					style={ { width: "100%", height: "100%", paddingTop: "1em" } }
-					alt="Sustainabilist Logo" 
-					src="/sustainabilist_logo.png"
-				/>
+				<div style={ styles.footerBox } ><span style={ styles.footerItem } >Created by Sustainabilist</span></div>
 			</a>
-			<div style={ styles.footerBox } ><span style={ styles.footerItem } >Created by Sustainabilist (copyright 2017)</span></div>
+
 		</div>
 	)
 }
