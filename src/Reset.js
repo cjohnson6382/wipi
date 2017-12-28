@@ -22,7 +22,7 @@ const styles = {
 
 const Reset = () => {
 	const onClick = async () => {
-		let r = await (await wipiFetch("reset")("GET")()).json()
+		let r = await (await wipiFetch("GET")("reset")()).json()
 		console.log(r)
 	}
 
